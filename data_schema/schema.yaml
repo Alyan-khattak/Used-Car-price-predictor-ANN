@@ -1,0 +1,55 @@
+# ═══════════════════════════════════════════════════════════════════
+# data_schema/schema.yaml
+# ═══════════════════════════════════════════════════════════════════
+# Dataset ka expected schema define karta hai
+# DataValidation yeh file padhta hai aur incoming data se compare karta hai
+#
+# WHY SCHEMA?
+# DataIngestion ke baad data corrupt ho sakta hai
+# Extra/missing columns → transformation fail hoga
+# Schema = contract — "data exactly aisa hona chahiye"
+#
+# DataValidation checks:
+# 1. validate_number_of_columns() → schema mein kitne columns
+# 2. validate_column_types()      → dtypes match karte hain?
+# 3. detect_dataset_drift()       → train vs test distribution same?
+###==============================================================
+
+columns:
+  # IMP: EDA ke baad yeh columns reh gaye hain
+  # Dropped: Unnamed:0, car_name, model
+  # Dropped: Electric, LPG rows
+  # Merged: Trustmark Dealer → Dealer
+  # Dropped: seats=0, seats=2
+
+  - vehicle_age:        int64
+  - km_driven:          float64   # log1p transformed
+  - seller_type:        object    # Dealer / Individual
+  - fuel_type:          object    # Petrol / Diesel / CNG
+  - transmission_type:  object    # Manual / Automatic
+  - mileage:            float64
+  - engine:             float64
+  - max_power:          float64
+  - seats:              float64
+  - brand:              object
+  - selling_price:      float64   # log1p transformed — TARGET
+
+numerical_columns:
+  # StandardScaler lagega in pe
+  - vehicle_age
+  - km_driven
+  - mileage
+  - engine
+  - max_power
+  - seats
+
+categorical_columns:
+  # OneHotEncoder lagega in pe
+  - brand
+  - seller_type
+  - fuel_type
+  - transmission_type
+
+target_column: selling_price
+# IMP: log1p transformed hai
+# prediction ke waqt expm1() apply karo → actual rupees mein convert
