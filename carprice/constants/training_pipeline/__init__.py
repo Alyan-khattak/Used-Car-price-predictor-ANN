@@ -34,5 +34,14 @@ SCHEMA_FILE_PATH: str = os.path.join("data_schema", "schema.yaml")
 DATA_INGESTION_DIR_NAME:str = "data_ingestion"
 DATA_INGESTION_FEATURE_STORE_DIR:str = "feature_store"
 DATA_INGESTION_INGESTED_DIR:str = "ingested"
-DATA_INGESTION_TRAIN_TEST_SPLIT:float = 0.2
+DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO:float = 0.2
 DATA_INGESTION_RANDOM_STATE:int = 42
+
+
+# EDA decisions → cleaning constants
+# Yeh values DataIngestion cleaning mein use hongi
+FUEL_TYPES_TO_DROP:   list = ["Electric", "LPG"]
+SEATS_TO_DROP:        list = [0, 2]
+SELLER_TYPE_MERGE:    dict = {"Trustmark Dealer": "Dealer"}
+COLUMNS_TO_DROP:      list = ["Unnamed: 0", "car_name", "model"]
+KM_DRIVEN_CAP_QUANTILE: float = 0.75   # Q3 + 1.5*IQR cap

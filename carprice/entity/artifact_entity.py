@@ -11,9 +11,12 @@
 #       → ModelTrainerArtifact
 ###==============================================================
 
+from dataclasses import dataclass
+
 # ── ARTIFACT 1: DataIngestionArtifact ────────────────────────────
 # DataIngestion.initiate_data_ingestion() return karta hai
 # DataValidation ko milega@dataclass
+@dataclass
 class DataIngestionArtifact:
     train_file_path: str
     # "Artifacts/timestamp/data_ingestion/ingested/train.csv"
