@@ -64,8 +64,8 @@ class CarPriceException(Exception):
 
 if __name__ == "__main__":
     try:
-        logger.logging.info("checking Exception")
+        logging.info("checking Exception")
         a = 1
         b = a + d
     except Exception as e:
-        raise NetworkSecurityException(e, sys)
+        raise CarPriceException(e, sys)
