@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+tensorflow
+mlflow
+dagshub
+fastapi
+uvicorn
+python-multipart
+jinja2
+dill
+pyaml
+python-dotenv
+huggingface_hub
+-e .
