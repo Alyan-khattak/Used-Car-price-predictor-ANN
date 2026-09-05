@@ -67,8 +67,8 @@ from carprice.utils.main_utils.utils import (
     save_object,
     evaluate_ann
 )
-from carprice.utils.dl_utils.metric.regression_metric import get_regression_score
-from carprice.utils.dl_utils.model.estimator import CarPriceModel
+from carprice.utils.DL_utils.metric.regression_metric import get_regression_score
+from carprice.utils.DL_utils.model.estimator import CarPriceModel
 from carprice.cloud.hf_syncer import push_model_to_huggingface
 
 
@@ -111,13 +111,17 @@ class ModelTrainer:
             prefix     (str)                  : "train_" ya "test_"
         """
         try:
-            # IMP: andar init karo — bahar nahi
-            dagshub.init(
-                repo_owner="Alyan-khattak",
-                repo_name="Used-Car-price-predictor-ANN",
-                mlflow=True
-            )
+            
 
+
+            import dagshub
+            dagshub.init(repo_owner='alyan-khattak',
+             repo_name='Used-Car-price-predictor-ANN',
+             mlflow=True)
+
+            
+
+            mlflow.set_experiment("CarPricePredictor")
             with mlflow.start_run():
                 mlflow.log_metric(f"{prefix}mae",      metric.mae)
                 mlflow.log_metric(f"{prefix}rmse",     metric.rmse)
@@ -241,12 +245,28 @@ class ModelTrainer:
             ModelTrainerArtifact
         """
         try:
+            #############################################################
+            # To Find Best Params
+
+            # -> I am Commententing out this part b/c my system deont have GPU and can't perform gridsearch
+            # -> I will add hardcoded values instead :: you can remove that and use this prt 
+            #############################################################
+
             # ── STEP 1: Best params dhundho ───────────────────────
-            best_params = self.get_best_params(X_train, y_train)
-            best_neurons = best_params.get("model__neurons", 128)
-            best_layers  = best_params.get("model__layers",  2)
-            best_epochs  = best_params.get("epochs",         100)
+            # best_params = self.get_best_params(X_train, y_train)
+            # best_neurons = best_params.get("model__neurons", 128)
+            # best_layers  = best_params.get("model__layers",  2)
+            # best_epochs  = best_params.get("epochs",         100)
             # IMP: scikeras prefix "model__" lagata hai params pe
+
+            ###########################################################
+
+# -------------------------------------------------------
+#          HardCoded Prt
+            best_neurons = 128
+            best_layers  = 2
+            best_epochs  = 100
+#---------------------------------------------
 
             logging.info(
                 f"Using — neurons: {best_neurons} | "
