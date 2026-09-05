@@ -80,3 +80,50 @@ CATEGORICAL_COLUMNS: list = [
     "brand", "seller_type",
     "fuel_type", "transmission_type"
 ]
+
+
+
+
+
+
+
+# ─────────────────────────────────────────────────────────────────
+# ANN MODEL TRAINER
+# TensorFlow/Keras — no GridSearchCV
+# ─────────────────────────────────────────────────────────────────
+MODEL_TRAINER_DIR_NAME:       str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.keras"
+# IMP: .keras format — tensorflow recommend karta hai .h5 se better
+# SavedModel format bhi use kar sakte hain
+
+PREPROCESSING_FILE_NAME: str = "preprocessing.pkl"
+
+
+ANN_DROPOUT_RATE:    float = 0.1
+ANN_LEARNING_RATE:   float = 0.001
+ANN_BATCH_SIZE:      int   = 32
+ANN_LOSS:            str   = "mae"
+# MAE loss → regression → car price mein MAE interpretable hai (rupees mein)
+
+ANN_OPTIMIZER:       str   = "adam"
+
+# EarlyStopping
+ANN_EARLY_STOPPING_PATIENCE:       int  = 10
+ANN_EARLY_STOPPING_MONITOR:        str  = "val_loss"
+ANN_EARLY_STOPPING_RESTORE_BEST:   bool = True
+# IMP: restore_best_weights=True → best epoch ka model milega
+# patience=10 → 10 epochs mein improvement nahi → stop
+
+# Model quality thresholds
+MODEL_TRAINER_EXPECTED_R2_SCORE:   float = 0.80
+# agar R² < 0.80 → model reject karo
+MODEL_TRAINER_OVERFITTING_THRESHOLD: float = 0.05
+# |train_r2 - test_r2| > 0.05 → overfitting warning
+
+# ─────────────────────────────────────────────────────────────────
+# HUGGING FACE
+# ─────────────────────────────────────────────────────────────────
+HF_REPO_ID:   str = "alyan-ktk/car-price-predictor-ann"
+HF_REPO_TYPE: str = "model"
+HF_MODEL_DIR: str = "final_model/"
