@@ -92,3 +92,23 @@ class RegressionMetricArtifact:
     # R² — model ne kitna variance explain kiya
     # 0.90+ expected (strong correlations confirmed in EDA)
 
+
+
+# ── ARTIFACT 5: ModelTrainerArtifact ─────────────────────────────
+# ModelTrainer.initiate_model_trainer() return karta hai
+# FastAPI aur PredictPipeline use karenge
+@dataclass
+class ModelTrainerArtifact:
+    trained_model_file_path: str
+    # "Artifacts/timestamp/model_trainer/trained_model/model.keras"
+    # TensorFlow SavedModel format
+
+    train_metric_artifact: RegressionMetricArtifact
+    # train data pe metrics
+    # MAE + RMSE + R²
+
+    test_metric_artifact: RegressionMetricArtifact
+    # test data pe metrics
+    # yeh wala production performance estimate karta hai
+    # overfitting check: |train_r2 - test_r2| > 0.05 → flag
+
