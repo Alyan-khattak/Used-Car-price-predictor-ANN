@@ -56,3 +56,27 @@ DATA_VALIDATION_VALID_DIR:              str = "validated"
 DATA_VALIDATION_INVALID_DIR:            str = "invalid"
 DATA_VALIDATION_DRIFT_REPORT_DIR:       str = "drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+
+
+
+
+# ─────────────────────────────────────────────────────────────────
+# DATA TRANSFORMATION
+# ColumnTransformer: StandardScaler + OHE
+# ─────────────────────────────────────────────────────────────────
+DATA_TRANSFORMATION_DIR_NAME:               str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR:   str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+PREPROCESSING_OBJECT_FILE_NAME:             str = "preprocessing.pkl"
+
+# Column names — schema se alag yahan bhi define karo
+# DataTransformation mein ColumnTransformer ko chahiye
+NUMERICAL_COLUMNS: list = [
+    "vehicle_age", "km_driven", "mileage",
+    "engine", "max_power", "seats"
+]
+
+CATEGORICAL_COLUMNS: list = [
+    "brand", "seller_type",
+    "fuel_type", "transmission_type"
+]
