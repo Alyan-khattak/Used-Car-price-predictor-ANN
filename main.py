@@ -9,15 +9,16 @@ import sys
 from carprice.components.data_ingestion import DataIngestion
 from carprice.components.data_validation import DataValidation
 from carprice.components.data_transformation import DataTransformation
+from carprice.components.model_trainer import ModelTrainer
 from carprice.exception.exception import CarPriceException
 from carprice.logging.logger import logging
 from carprice.entity.config_entity import (
     TrainingPipelineConfig,
     DataIngestionConfig,
     DataValidationConfig,
-    DataTransformationConfig
+    DataTransformationConfig,
+    ModelTrainerConfig
 )
-
 
 
 if __name__ == "__main__":
@@ -60,7 +61,17 @@ if __name__ == "__main__":
         data_transformation_artifact = data_transformation.initiate_data_transformation()
         logging.info(f"DataTransformation: {data_transformation_artifact}")
 
-        print(data_transformation_artifact)
+
+        # ModelTrainer
+        model_trainer_config   = ModelTrainerConfig(training_pipeline_config)
+        model_trainer          = ModelTrainer(
+            model_trainer_config=model_trainer_config,
+            data_transformation_artifact=data_transformation_artifact
+        )
+        model_trainer_artifact = model_trainer.initiate_model_trainer()
+
+        logging.info(f"Pipeline complete: {model_trainer_artifact}")
+        print(model_trainer_artifact)
 
         
     except Exception as e:
