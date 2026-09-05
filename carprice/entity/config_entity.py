@@ -208,3 +208,72 @@ class DataTransformationConfig:
         # → "Artifacts/timestamp/data_transformation/transformed_object/preprocessing.pkl"
         # fitted ColumnTransformer → PredictPipeline load karega
 
+
+
+
+
+
+# ══════════════════════════════════════════════════════════════════
+# CLASS 5: ModelTrainerConfig
+# ══════════════════════════════════════════════════════════════════
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        """
+        PATH STRUCTURE:
+        Artifacts/timestamp/
+        └── model_trainer/
+            └── trained_model/
+                └── model.keras  ← TensorFlow SavedModel
+        """
+        self.model_trainer_dir: str = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.MODEL_TRAINER_DIR_NAME
+        )
+        # → "Artifacts/timestamp/model_trainer"
+
+        self.trained_model_file_path: str = os.path.join(
+            self.model_trainer_dir,
+            training_pipeline.MODEL_TRAINER_TRAINED_MODEL_DIR,
+            training_pipeline.MODEL_TRAINER_TRAINED_MODEL_NAME
+        )
+        # → "Artifacts/timestamp/model_trainer/trained_model/model.keras"
+
+        self.expected_r2_score: float = training_pipeline.MODEL_TRAINER_EXPECTED_R2_SCORE
+        # → 0.80 — agar R² < 0.80 → model reject
+
+        self.overfitting_threshold: float = training_pipeline.MODEL_TRAINER_OVERFITTING_THRESHOLD
+        # → 0.05 — |train_r2 - test_r2| > 0.05 → overfitting warning
+
+        # ANN hyperparams — constants se
+      
+        self.dropout_rate:    float = training_pipeline.ANN_DROPOUT_RATE
+        self.learning_rate:   float = training_pipeline.ANN_LEARNING_RATE
+        self.batch_size:      int   = training_pipeline.ANN_BATCH_SIZE
+        self.loss:            str   = training_pipeline.ANN_LOSS
+        self.optimizer:       str   = training_pipeline.ANN_OPTIMIZER
+        self.early_stopping_patience:     int  = training_pipeline.ANN_EARLY_STOPPING_PATIENCE
+        self.early_stopping_monitor:      str  = training_pipeline.ANN_EARLY_STOPPING_MONITOR
+        self.early_stopping_restore_best: bool = training_pipeline.ANN_EARLY_STOPPING_RESTORE_BEST
+
+
+# ─────────────────────────────────────────────────────────────────
+# DRY RUN
+#
+# training_pipeline_config = TrainingPipelineConfig()
+# → artifact_dir = "Artifacts/08_24_2026_14_32_00"
+#
+# data_ingestion_config = DataIngestionConfig(training_pipeline_config)
+# → feature_store_file_path = "Artifacts/.../feature_store/cardekho_dataset.csv"
+# → training_file_path      = "Artifacts/.../ingested/train.csv"
+# → testing_file_path       = "Artifacts/.../ingested/test.csv"
+#
+# data_transformation_config = DataTransformationConfig(training_pipeline_config)
+# → transformed_train_file_path = "Artifacts/.../transformed/train.npy"
+# → transformed_object_file_path = "Artifacts/.../transformed_object/preprocessing.pkl"
+#
+# model_trainer_config = ModelTrainerConfig(training_pipeline_config)
+# → trained_model_file_path = "Artifacts/.../model_trainer/trained_model/model.keras"
+# → expected_r2_score       = 0.80
+# → epochs                  = 100
+# → hidden_units            = [256, 128, 64]
+# ─────────────────────────────────────────────────────────────────
