@@ -121,6 +121,12 @@ MODEL_TRAINER_EXPECTED_R2_SCORE:   float = 0.80
 MODEL_TRAINER_OVERFITTING_THRESHOLD: float = 0.05
 # |train_r2 - test_r2| > 0.05 → overfitting warning
 
+ANN_PARAM_GRID: dict = {
+    "model__neurons": [64, 128, 256],
+    "model__layers":  [1, 2, 3],
+    "epochs":         [50, 100]
+}
+
 # ─────────────────────────────────────────────────────────────────
 # HUGGING FACE
 # ─────────────────────────────────────────────────────────────────
