@@ -95,3 +95,69 @@ class DataIngestionConfig:
 
         self.random_state: int = training_pipeline.DATA_INGESTION_RANDOM_STATE
         # → 42
+
+
+
+
+# ══════════════════════════════════════════════════════════════════
+# CLASS 3: DataValidationConfig
+# ══════════════════════════════════════════════════════════════════
+class DataValidationConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        """
+        PATH STRUCTURE:
+        Artifacts/timestamp/
+        └── data_validation/
+            ├── validated/train.csv + test.csv  ← DataTransformation ka INPUT
+            ├── invalid/train.csv + test.csv
+            └── drift_report/report.yaml
+        """
+        self.data_validation_dir: str = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.DATA_VALIDATON_DIR_NAME
+        )
+        # → "Artifacts/timestamp/data_validation": 
+
+        self.valid_data_dir: str = os.path.join(
+            self.data_validation_dir,
+            training_pipeline.DATA_VALIDATION_VALID_DIR
+        )
+        # → "Artifacts/timestamp/data_validation/validated"
+
+        self.invalid_data_dir: str = os.path.join(
+            self.data_validation_dir,
+            training_pipeline.DATA_VALIDATION_INVALID_DIR
+        )
+        # → "Artifacts/timestamp/data_validation/invalid"
+
+        self.valid_train_file_path: str = os.path.join(
+            self.valid_data_dir,
+            training_pipeline.TRAIN_FILE_NAME
+        )
+        # → "Artifacts/timestamp/data_validation/validated/train.csv"
+
+        self.valid_test_file_path: str = os.path.join(
+            self.valid_data_dir,
+            training_pipeline.TEST_FILE_NAME
+        )
+        # → "Artifacts/timestamp/data_validation/validated/test.csv"
+
+        self.invalid_train_file_path: str = os.path.join(
+            self.invalid_data_dir,
+            training_pipeline.TRAIN_FILE_NAME
+        )
+        # → "Artifacts/timestamp/data_validation/invalid/train.csv"
+
+        self.invalid_test_file_path: str = os.path.join(
+            self.invalid_data_dir,
+            training_pipeline.TEST_FILE_NAME
+        )
+        # → "Artifacts/timestamp/data_validation/invalid/test.csv"
+
+        self.drift_report_file_path: str = os.path.join(
+            self.data_validation_dir,
+            training_pipeline.DATA_VALIDATION_DRIFT_REPORT_DIR,
+            training_pipeline.DATA_VALIDATION_DRIFT_REPORT_FILE_NAME
+        )
+        # → "Artifacts/timestamp/data_validation/drift_report/report.yaml"
+
