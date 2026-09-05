@@ -45,3 +45,14 @@ SEATS_TO_DROP:        list = [0, 2]
 SELLER_TYPE_MERGE:    dict = {"Trustmark Dealer": "Dealer"}
 COLUMNS_TO_DROP:      list = ["Unnamed: 0", "car_name", "model"]
 KM_DRIVEN_CAP_QUANTILE: float = 0.75   # Q3 + 1.5*IQR cap
+
+
+
+# ─────────────────────────────────────────────────────────────────
+# DATA VALIDATION
+# ─────────────────────────────────────────────────────────────────
+DATA_VALIDATON_DIR_NAME:                str = "data_validation"
+DATA_VALIDATION_VALID_DIR:              str = "validated"
+DATA_VALIDATION_INVALID_DIR:            str = "invalid"
+DATA_VALIDATION_DRIFT_REPORT_DIR:       str = "drift_report"
+DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
