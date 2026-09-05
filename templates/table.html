@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Results · CarPrice</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAFAF8;--bg-2:#F4F2ED;--surface:#FFFFFF;
+  --navy:#1A1F2E;--amber:#C8833A;--amber-lt:#F5E6D3;--amber-mid:#E8C49A;
+  --sage:#4A7C6F;--sage-lt:#E8F0EE;--red:#D94F3D;--red-lt:#FCEAE8;
+  --border:rgba(26,31,46,0.1);--border-2:rgba(26,31,46,0.06);
+  --text:#1A1F2E;--text-2:#4A5068;--text-3:#8B8FA8;
+  --serif:'DM Serif Display',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --radius:12px;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100dvh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 56px;
+  background:rgba(250,250,248,0.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-2);position:sticky;top:0;z-index:10}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:36px;height:36px;background:var(--navy);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:var(--serif);font-size:18px;font-style:italic}
+.logo-name{font-family:var(--serif);font-size:1.2rem;color:var(--navy)}
+.logo-name span{color:var(--amber)}
+.nav-back{font-size:0.875rem;color:var(--text-2);text-decoration:none;transition:color 250ms}
+.nav-back:hover{color:var(--amber)}
+.content{max-width:1300px;margin:0 auto;padding:48px 40px 80px}
+.page-tag{display:inline-flex;align-items:center;gap:6px;
+  background:var(--sage-lt);color:var(--sage);
+  font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;margin-bottom:16px}
+.page-title{font-family:var(--serif);font-size:2rem;color:var(--navy);
+  letter-spacing:-0.02em;margin-bottom:6px}
+.page-sub{font-size:0.9rem;color:var(--text-2);margin-bottom:28px;font-weight:300}
+/* summary strip */
+.summary{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.sum-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 20px;min-width:140px;
+}
+.sum-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:4px;font-weight:500}
+.sum-val{font-family:var(--serif);font-size:1.5rem;color:var(--navy);letter-spacing:-0.02em}
+.sum-val.amber{color:var(--amber)}
+.sum-val.sage{color:var(--sage)}
+/* table */
+.table-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 8px 32px rgba(26,31,46,0.06);
+}
+.table-bar{
+  padding:14px 20px;border-bottom:1px solid var(--border-2);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg-2);
+}
+.table-bar-title{font-size:13px;font-weight:600;color:var(--navy)}
+.dl-link{font-size:12px;color:var(--amber);text-decoration:none;font-weight:500}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{border-bottom:1px solid var(--border)}
+th{padding:12px 16px;text-align:left;color:var(--text-3);font-weight:500;
+  font-size:11px;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;
+  background:var(--bg-2)}
+td{padding:12px 16px;border-bottom:1px solid var(--border-2);color:var(--text);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(200,131,58,0.03)}
+.price-cell{color:var(--amber);font-weight:600;font-family:var(--mono)}
+/* jinja override */
+table.table-striped th{padding:12px 16px;text-align:left;color:var(--text-3);font-weight:500;
+  font-size:11px;text-transform:uppercase;letter-spacing:0.07em;
+  background:var(--bg-2);border-bottom:1px solid var(--border)}
+table.table-striped td{padding:12px 16px;border-bottom:1px solid var(--border-2);color:var(--text)}
+table.table-striped tr:hover td{background:rgba(200,131,58,0.03)}
+/* actions */
+.action-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn-fill{display:inline-flex;align-items:center;gap:7px;
+  background:var(--amber);color:#fff;font-size:0.875rem;font-weight:600;
+  padding:11px 22px;border-radius:10px;text-decoration:none;
+  transition:background 250ms;box-shadow:0 4px 16px rgba(200,131,58,0.25)}
+.btn-fill:hover{background:#B8722A}
+.btn-ghost{display:inline-flex;align-items:center;gap:7px;background:transparent;
+  color:var(--text-2);font-size:0.875rem;font-weight:500;
+  padding:11px 20px;border-radius:10px;border:1.5px solid var(--border);
+  text-decoration:none;transition:border-color 250ms,color 250ms}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber)}
+@media(max-width:768px){nav{padding:16px 20px}.content{padding:32px 20px 60px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">C</div>
+    <span class="logo-name">Car<span>Price</span></span>
+  </a>
+  <a href="/" class="nav-back">← Home</a>
+</nav>
+<div class="content">
+  <div class="page-tag">✓ Prediction complete</div>
+  <h1 class="page-title">Valuation Results</h1>
+  <p class="page-sub">ANN model predicted prices · expm1() applied · actual rupees shown below</p>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="table-card">
+    <div class="table-bar">
+      <span class="table-bar-title">Predicted Prices</span>
+      <a href="/prediction_output/output.csv" class="dl-link">↓ Download CSV</a>
+    </div>
+    <div class="table-wrap">{{ table | safe }}</div>
+  </div>
+
+  <div class="action-row">
+    <a href="/predict" class="btn-fill">New Prediction →</a>
+    <a href="/predict/manual" class="btn-ghost">Manual Entry</a>
+    <a href="/" class="btn-ghost">← Home</a>
+  </div>
+</div>
+<script>
+  const headers=document.querySelectorAll('th');
+  let priceColIdx=-1;
+  headers.forEach((th,i)=>{if(th.textContent.toLowerCase().includes('predicted'))priceColIdx=i});
+  const rows=document.querySelectorAll('tbody tr');
+  let total=0,sum=0,min=Infinity,max=-Infinity;
+  rows.forEach(r=>{
+    if(priceColIdx>=0){
+      const td=r.querySelectorAll('td')[priceColIdx];
+      if(td){
+        const val=parseInt(td.textContent.replace(/[^0-9]/g,''));
+        if(!isNaN(val)){
+          td.classList.add('price-cell');
+          td.textContent='₹'+val.toLocaleString('en-IN');
+          total++;sum+=val;
+          if(val<min)min=val;
+          if(val>max)max=val;
+        }
+      }
+    }
+  });
+  const s=document.getElementById('summary');
+  if(total>0){
+    const avg=Math.round(sum/total);
+    s.innerHTML=`
+      <div class="sum-card"><div class="sum-label">Total Cars</div><div class="sum-val">${total}</div></div>
+      <div class="sum-card"><div class="sum-label">Average Price</div><div class="sum-val amber">₹${avg.toLocaleString('en-IN')}</div></div>
+      <div class="sum-card"><div class="sum-label">Lowest</div><div class="sum-val">₹${min.toLocaleString('en-IN')}</div></div>
+      <div class="sum-card"><div class="sum-label">Highest</div><div class="sum-val sage">₹${max.toLocaleString('en-IN')}</div></div>
+    `;
+  }
+</script>
+</body>
+</html>

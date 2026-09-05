@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 
 from carprice.pipeline.training_pipeline import TrainingPipeline
-from carprice.utils.dl_utils.model.estimator import CarPriceModel
+from carprice.utils.DL_utils.model.estimator import CarPriceModel
 from carprice.utils.main_utils.utils import load_object
 from carprice.cloud.hf_syncer import pull_model_from_huggingface
 from carprice.exception.exception import CarPriceException
