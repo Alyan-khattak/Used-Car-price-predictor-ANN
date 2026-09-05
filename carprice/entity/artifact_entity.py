@@ -51,3 +51,23 @@ class DataValidationArtifact:
     drift_report_file_path: str
     # "Artifacts/timestamp/data_validation/drift_report/report.yaml"
 
+
+
+
+# ── ARTIFACT 3: DataTransformationArtifact ───────────────────────
+# DataTransformation.initiate_data_transformation() return karta hai
+# ModelTrainer ko milega
+@dataclass
+class DataTransformationArtifact:
+    transformed_object_file_path: str
+    # "Artifacts/timestamp/data_transformation/transformed_object/preprocessing.pkl"
+    # fitted ColumnTransformer (StandardScaler + OHE)
+    # PredictPipeline load karega
+
+    transformed_train_file_path: str
+    # "Artifacts/timestamp/data_transformation/transformed/train.npy"
+    # shape: (N_train, 45) → 44 features + 1 target (last col)
+
+    transformed_test_file_path: str
+    # "Artifacts/timestamp/data_transformation/transformed/test.npy"
+    # shape: (N_test, 45)
