@@ -71,3 +71,24 @@ class DataTransformationArtifact:
     transformed_test_file_path: str
     # "Artifacts/timestamp/data_transformation/transformed/test.npy"
     # shape: (N_test, 45)
+
+
+
+# ── ARTIFACT 4: RegressionMetricArtifact ─────────────────────────
+# ModelTrainer train + test dono pe yeh banayega
+# NetworkSecurity mein ClassificationMetricArtifact tha
+# Car price regression hai → MAE, RMSE, R²
+@dataclass
+class RegressionMetricArtifact:
+    mae: float
+    # Mean Absolute Error — actual rupees mein (expm1 ke baad)
+    # e.g. MAE = 85000 → average ₹85k off
+
+    rmse: float
+    # Root Mean Squared Error — large errors pe zyada penalty
+    # e.g. RMSE = 120000
+
+    r2_score: float
+    # R² — model ne kitna variance explain kiya
+    # 0.90+ expected (strong correlations confirmed in EDA)
+
