@@ -7,12 +7,16 @@
 
 import sys
 from carprice.components.data_ingestion import DataIngestion
+from carprice.components.data_validation import DataValidation
 from carprice.exception.exception import CarPriceException
 from carprice.logging.logger import logging
 from carprice.entity.config_entity import (
     TrainingPipelineConfig,
-    DataIngestionConfig
+    DataIngestionConfig,
+    DataValidationConfig
 )
+
+
 
 if __name__ == "__main__":
     try:
@@ -34,7 +38,15 @@ if __name__ == "__main__":
         data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
         logging.info(f"DataIngestion completed: {data_ingestion_artifact}")
 
-        print(data_ingestion_artifact)
+
+        # DataValidation
+        data_validation_config   = DataValidationConfig(training_pipeline_config)
+        data_validation          = DataValidation(
+            data_ingestion_artifact=data_ingestion_artifact,
+            data_validation_config=data_validation_config
+        )
+        data_validation_artifact = data_validation.initiate_data_validation()
+        logging.info(f"DataValidation: {data_validation_artifact}")
 
     except Exception as e:
         raise CarPriceException(e, sys)
